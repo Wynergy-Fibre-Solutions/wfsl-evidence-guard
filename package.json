@@ -1,18 +1,12 @@
 {
   "name": "wfsl-evidence-guard",
   "version": "0.1.0",
-  "description": "Deterministic evidence emission engine for CI and governance workflows.",
-  "license": "MIT",
-  "type": "module",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "bin": {
-    "wfsl-evidence-guard": "dist/cli.js"
-  },
+  "private": true,
+  "type": "commonjs",
   "scripts": {
-    "build": "tsc -p tsconfig.json"
+    "build": "tsc"
   },
-  "devDependencies": {
-    "typescript": "^5.9.3"
+  "dependencies": {
+    "wfsl-licence-core": "file:../wfsl-licence-core"
   }
 }
