@@ -1,4 +1,23 @@
+# dependencies
 node_modules/
+
+# build output
 dist/
+
+# runtime evidence artefacts
+evidence.json
+evidence.receipt.json
 evidence/
+
+# environment files
 .env
+.env.*
+
+# logs
+*.log
+
+# OS / editor noise
+.vscode/
+.history/
+.DS_Store
+Thumbs.db
