@@ -1,0 +1,9 @@
+﻿{
+    "timestamp":  "2026-01-13T15:26:47.0108792+00:00",
+    "status":  "completed",
+    "notes":  "wfsl-evidence-guard verification run",
+    "outputs":  {
+                    "environment":  "evidence\\local-machine\\environment.json",
+                    "executionContext":  "evidence\\local-machine\\execution-context.json"
+                }
+}
