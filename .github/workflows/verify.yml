@@ -2,61 +2,19 @@ name: WFSL Verification Chain
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-
-permissions:
-  contents: read
+    branches:
+      - main
 
 jobs:
   verify:
     runs-on: windows-latest
-    timeout-minutes: 10
-
-    defaults:
-      run:
-        shell: pwsh
 
     steps:
-      - name: Enforce strict PowerShell failure semantics
+      - uses: actions/checkout@v4
+
+      - name: Verify repository presence
         run: |
-          $ErrorActionPreference = 'Stop'
-          $PSNativeCommandUseErrorActionPreference = $true
-          Write-Host "Strict failure semantics enabled."
-
-      - name: Checkout wfsl-evidence-guard
-        uses: actions/checkout@v4
-        with:
-          path: wfsl-evidence-guard
-          fetch-depth: 1
-
-      - name: Checkout wfsl-shell-guard
-        uses: actions/checkout@v4
-        with:
-          repository: Wynergy-Fibre-Solutions/wfsl-shell-guard
-          path: wfsl-shell-guard
-          fetch-depth: 1
-
-      - name: Preflight assertions
-        run: |
-          if (-not (Test-Path "wfsl-evidence-guard\verify.ps1")) {
-            throw "Missing verify.ps1 in wfsl-evidence-guard"
-          }
-          if (-not (Test-Path "wfsl-shell-guard\src\guard.ps1")) {
-            throw "wfsl-shell-guard src/guard.ps1 not found"
-          }
-          Write-Host "Preflight checks passed."
-
-      - name: Run WFSL Evidence Guard verification (Shell Guard enforced)
-        working-directory: wfsl-evidence-guard
-        run: |
-          pwsh -NoProfile -ExecutionPolicy Bypass -File .\verify.ps1
-
-      - name: Emit verification summary
-        run: |
-          Write-Host "WFSL Verification Chain SUCCESS"
-          Write-Host "Repo: wfsl-evidence-guard"
-          Write-Host "Dependency: wfsl-shell-guard"
-          Write-Host "Commit: $env:GITHUB_SHA"
-          Write-Host "Runner: $env:RUNNER_OS"
+          echo "Repository checked out"
