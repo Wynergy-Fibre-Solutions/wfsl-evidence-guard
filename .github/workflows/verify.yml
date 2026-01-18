@@ -43,11 +43,9 @@ jobs:
           if (-not (Test-Path "wfsl-evidence-guard\verify.ps1")) {
             throw "Missing verify.ps1 in wfsl-evidence-guard"
           }
-
           if (-not (Test-Path "wfsl-shell-guard\src\guard.ps1")) {
             throw "wfsl-shell-guard src/guard.ps1 not found"
           }
-
           Write-Host "Preflight checks passed."
 
       - name: Run WFSL Evidence Guard verification (Shell Guard enforced)
