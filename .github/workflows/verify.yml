@@ -43,25 +43,22 @@ jobs:
           if (-not (Test-Path "wfsl-evidence-guard\verify.ps1")) {
             throw "Missing verify.ps1 in wfsl-evidence-guard"
           }
-          if (-not (Test-Path "wfsl-shell-guard")) {
-            throw "wfsl-shell-guard checkout missing"
+
+          if (-not (Test-Path "wfsl-shell-guard\src\guard.ps1")) {
+            throw "wfsl-shell-guard src/guard.ps1 not found"
           }
+
           Write-Host "Preflight checks passed."
 
       - name: Run WFSL Evidence Guard verification (Shell Guard enforced)
         working-directory: wfsl-evidence-guard
         run: |
           pwsh -NoProfile -ExecutionPolicy Bypass -File .\verify.ps1
-          Write-Host "Verification script completed."
 
       - name: Emit verification summary
         run: |
-          $summary = @"
-WFSL Verification Chain
-- Repo: wfsl-evidence-guard
-- Dependency: wfsl-shell-guard
-- Commit: $env:GITHUB_SHA
-- Runner: $env:RUNNER_OS
-- Result: SUCCESS
-"@
-          Write-Host $summary
+          Write-Host "WFSL Verification Chain SUCCESS"
+          Write-Host "Repo: wfsl-evidence-guard"
+          Write-Host "Dependency: wfsl-shell-guard"
+          Write-Host "Commit: $env:GITHUB_SHA"
+          Write-Host "Runner: $env:RUNNER_OS"
