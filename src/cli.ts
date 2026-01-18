@@ -1,61 +1,51 @@
-// wfsl-evidence-guard/src/cli.ts
-
-import { requirePro, issueReceipt, WfslError } from "wfsl-licence-core";
 import { createHash } from "crypto";
-import * as fs from "fs";
+import { getDeterministicContext } from "./index";
 
-function emitEvidence(data: string): string {
-  const outPath = "evidence.json";
-  fs.writeFileSync(outPath, data, "utf8");
-  return outPath;
-}
-
-function hashFile(filePath: string): string {
-  const buf = fs.readFileSync(filePath);
-  const h = createHash("sha256").update(buf).digest("hex");
-  return `sha256:${h}`;
-}
-
-async function main() {
-  const mode = process.argv[2] ?? "community";
-
-  if (mode === "pro") {
-    const authority = requirePro("evidence.pro");
-
-    const outputPath = emitEvidence(
-      JSON.stringify({ evidence: "authoritative", ts: new Date().toISOString() }, null, 2)
-    );
-
-    const outputHash = hashFile(outputPath);
-
-    const { receipt, signature } = issueReceipt(authority, {
-      tool: "wfsl-evidence-guard",
-      toolVersion: "0.1.0",
-      outputHash
-    });
-
-    fs.writeFileSync(
-      "evidence.receipt.json",
-      JSON.stringify({ receipt, signature }, null, 2),
-      "utf8"
-    );
-
-    console.log("Pro evidence emitted with receipt.");
-    return;
+function stableStringify(value: unknown): string {
+  if (Array.isArray(value)) {
+    return `[${value.map(stableStringify).join(",")}]`;
   }
 
-  emitEvidence(
-    JSON.stringify({ evidence: "community", ts: new Date().toISOString() }, null, 2)
-  );
-  console.log("Community evidence emitted.");
-}
-
-main().catch((err) => {
-  if (err instanceof WfslError) {
-    console.error(err.message);
-    process.exit(err.exitCode);
+  if (value && typeof value === "object") {
+    const entries = Object.entries(value as Record<string, unknown>)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([k, v]) => `"${k}":${stableStringify(v)}`);
+    return `{${entries.join(",")}}`;
   }
 
-  console.error(err?.message ?? err);
-  process.exit(99);
-});
+  return JSON.stringify(value);
+}
+
+function sha256(input: string): string {
+  return createHash("sha256").update(input).digest("hex");
+}
+
+export function emitEvidence(payload: Record<string, unknown>) {
+  const context = getDeterministicContext();
+
+  const evidence = {
+    wfsl: {
+      component: "wfsl-evidence-guard",
+      execution_level: "deterministic-v1",
+      doctrine: "WFSL-SILENT-PROOF-v1"
+    },
+    deterministic_time: context.deterministicTime,
+    payload
+  };
+
+  const canonical = stableStringify(evidence);
+  const hash = sha256(canonical);
+
+  const output = {
+    evidence,
+    hash
+  };
+
+  process.stdout.write(stableStringify(output));
+}
+
+if (require.main === module) {
+  emitEvidence({
+    example: "deterministic-proof"
+  });
+}
