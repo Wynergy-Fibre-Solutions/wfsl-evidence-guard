@@ -1,9 +1,13 @@
-# wfsl-evidence-guard
+## Governance alignment
 
-Deterministic evidence emission utility.
+WFSL Evidence Guard operates under the authority of the
+WFSL Control and Execution Governance Charter.
 
-This repository produces structured, machine-verifiable evidence outputs intended for governance, inspection, and verification workflows.
+The charter defines the non-negotiable principles governing execution authority,
+evidence integrity, determinism, and control boundaries across WFSL systems.
 
-Behaviour is enforced in code. No inference or policy assumptions are made.
+This project implements evidence-generation and verification controls that are
+justified by, and subordinate to, that charter.
 
-Verified by WFSL software and CI.
+Authoritative charter:
+https://github.com/Wynergy-Fibre-Solutions/wfsl-core/blob/main/WFSL_CONTROL_EXECUTION_GOVERNANCE_CHARTER.md
