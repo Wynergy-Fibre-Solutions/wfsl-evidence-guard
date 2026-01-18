@@ -11,9 +11,19 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Evidence Guard
+        uses: actions/checkout@v4
+        with:
+          path: wfsl-evidence-guard
 
-      - name: Run WFSL Evidence Guard
+      - name: Checkout Shell Guard
+        uses: actions/checkout@v4
+        with:
+          repository: Wynergy-Fibre-Solutions/wfsl-shell-guard
+          path: wfsl-shell-guard
+
+      - name: Run WFSL Evidence Guard (Shell Guard enforced)
         shell: pwsh
+        working-directory: wfsl-evidence-guard
         run: |
           pwsh -NoProfile -ExecutionPolicy Bypass -File .\verify.ps1
