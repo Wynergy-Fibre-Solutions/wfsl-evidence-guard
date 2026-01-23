@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "repoGuard": {
+    "git": {
+      "requireGitignore": true
+    },
+    "dependencies": {
+      "lockfileRequired": false
+    }
+  }
+}
