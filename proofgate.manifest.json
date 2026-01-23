@@ -5,7 +5,11 @@
       "requireGitignore": true
     },
     "dependencies": {
-      "lockfileRequired": false
+      "lockfileRequired": true
+    },
+    "build": {
+      "output": "dist",
+      "tracked": false
     }
   }
 }

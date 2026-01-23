@@ -1,0 +1,11 @@
+{
+  "timestampUtc": "2026-01-23T12:34:56Z",
+  "provider": "vodafone",
+  "device": "tablet-01",
+  "observationType": "live-network-snapshot",
+  "payload": {
+    "signal": "-93dBm",
+    "networkType": "LTE",
+    "notes": "initial live capture"
+  }
+}
