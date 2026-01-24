@@ -1,15 +1,21 @@
 {
-  "version": "1.0.0",
-  "repoGuard": {
-    "git": {
-      "requireGitignore": true
-    },
-    "dependencies": {
-      "lockfileRequired": true
-    },
-    "build": {
-      "output": "dist",
-      "tracked": false
-    }
+  "name": "wfsl-evidence-guard",
+  "version": "0.1.0",
+  "description": "WFSL Evidence Guard. Emits deterministic, sealed evidence artefacts for ProofGate verification and cross-guard convergence.",
+  "owner": "Wynergy Fibre Solutions Ltd",
+  "scope": "evidence",
+  "guardType": "evidence",
+  "tier": "opencore",
+  "entrypoint": null,
+  "artefacts": [
+    "wfsl.evidence.payload.json",
+    "wfsl.evidence.payload.sha256",
+    "wfsl.evidence.verdict.json",
+    "wfsl.evidence.proofgate.bundle.json"
+  ],
+  "determinism": {
+    "inputs": "structured-evidence",
+    "outputs": "deterministic-json",
+    "hash": "sha256"
   }
 }
