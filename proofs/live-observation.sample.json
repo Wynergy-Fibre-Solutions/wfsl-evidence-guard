@@ -1,0 +1,15 @@
+{
+  "wfsl": {
+    "component": "wfsl-evidence-guard",
+    "mode": "observation-only"
+  },
+  "timestamp": "2026-01-21T12:00:00Z",
+  "environment": {
+    "source": "vodafone-sim"
+  },
+  "observation": {
+    "status": "connected",
+    "signal_present": true,
+    "notes": "Observation-only sample. No payload captured."
+  }
+}

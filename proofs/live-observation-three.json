@@ -1,0 +1,15 @@
+{
+  "wfsl": {
+    "component": "wfsl-evidence-guard",
+    "mode": "observation-only"
+  },
+  "timestamp": "2026-01-21T12:10:00Z",
+  "environment": {
+    "source": "three-router"
+  },
+  "observation": {
+    "status": "connected",
+    "signal_present": true,
+    "notes": "Live observation. Read-only. No payload capture."
+  }
+}

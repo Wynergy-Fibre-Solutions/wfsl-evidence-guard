@@ -3,6 +3,13 @@
     "build": "tsc",
     "demo": "node dist/cli.js",
     "demo:pro": "node dist/cli.js pro",
-    "verify": "node dist/scripts/verify-receipt.js"
+    "verify": "tsx src/scripts/verify-receipt.ts"
+  },
+  "devDependencies": {
+    "tsx": "^4.21.0"
+  },
+  "dependencies": {
+    "@wfsl/shared-verifier": "file:../wfsl-shared-verifier",
+    "wfsl-shared-verifier": "file:../wfsl-shared-verifier"
   }
 }

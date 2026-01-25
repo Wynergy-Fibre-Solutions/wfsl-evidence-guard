@@ -1,0 +1,1 @@
+{"evidence":{"deterministic_time":"2026-01-18T00:00:00.000Z","payload":{"example":"deterministic-proof"},"wfsl":{"component":"wfsl-evidence-guard","doctrine":"WFSL-SILENT-PROOF-v1","execution_level":"deterministic-v1"}},"hash":"4408103412ef781a9232f1e1e276b71fd0da523f0ba40d348fe8037c680ed6d8"}

@@ -1,0 +1,92 @@
+import crypto from "node:crypto";
+import fs from "node:fs";
+
+function sha256(text) {
+  return crypto.createHash("sha256").update(text).digest("hex");
+}
+
+function deepSort(value) {
+  if (value === null || value === undefined) return value;
+  if (Array.isArray(value)) return value.map(deepSort);
+  if (typeof value === "object") {
+    const out = {};
+    for (const k of Object.keys(value).sort()) out[k] = deepSort(value[k]);
+    return out;
+  }
+  return value;
+}
+
+function stableStringify(value) {
+  return JSON.stringify(deepSort(value));
+}
+
+function readStdinUtf8() {
+  return fs.readFileSync(0, "utf8");
+}
+
+function nowUtcIso() {
+  return new Date().toISOString();
+}
+
+function fail(message) {
+  const err = {
+    error: {
+      schema_version: "wfsl-error.v1",
+      timestamp_utc: nowUtcIso(),
+      error_class: "WFSL_ADAPTER_FAILURE",
+      message,
+    },
+  };
+  process.stdout.write(stableStringify(err));
+  process.exitCode = 1;
+}
+
+try {
+  const raw = readStdinUtf8();
+  if (!raw || !raw.trim()) {
+    fail("No input on stdin. Pipe a tool output into wfsl-adapter.mjs");
+  }
+
+  const native_output_hash = `sha256:${sha256(raw)}`;
+
+  let native;
+  let native_kind = "text";
+  try {
+    native = JSON.parse(raw);
+    native_kind = "json";
+  } catch {
+    native = { raw_text: raw };
+  }
+
+  const evidence = {
+    schema_version: "wfsl-evidence.v1",
+    timestamp_utc: nowUtcIso(),
+    timestamp_trust: "system-clock",
+    producer: {
+      system: "wfsl-proofgate-cli",
+      component: "wfsl-adapter",
+      language: "nodejs",
+    },
+    payload: {
+      evidence_class: "adapter-wrap",
+      native_kind,
+      native_output_hash,
+      note: "Native tool output wrapped into WFSL Evidence v1 by wfsl-proofgate-cli adapter",
+    },
+    native: native,
+  };
+
+  if (!evidence || typeof evidence !== "object" || Object.keys(evidence).length === 0) {
+    fail("Evidence object empty");
+  }
+  if (!evidence.schema_version) {
+    fail("schema_version missing");
+  }
+
+  const canonical = stableStringify(evidence);
+  const hash = sha256(canonical);
+
+  process.stdout.write(stableStringify({ evidence, hash }));
+} catch (e) {
+  fail(e instanceof Error ? e.message : "Unknown adapter failure");
+}
