@@ -1,180 +1,86 @@
-\# WFSL Evidence Guard
+Commercial use requires a WFSL licence. See commercial-wfsl-offerings/HOW-TO-BUY.md.
 
+# WFSL Evidence Guard
 
+## Purpose
 
-\## Purpose
+WFSL Evidence Guard is the authoritative evidence generation and sealing component of the WFSL platform.
 
+It produces structured, deterministic, cryptographically verifiable evidence records intended for governance, inspection, and audit workflows.
 
-
-WFSL Evidence Guard is the canonical deterministic evidence emitter for the WFSL platform.
-
-
-
-It produces structured, machine-verifiable evidence artefacts used for governance, verification, inspection, and trust propagation across WFSL systems.
-
-
-
-This repository is the root truth source upon which higher-order WFSL engines depend.
-
-
+Evidence Guard is the only component authorised to emit WFSL evidence.
 
 ---
 
+## Functional Guarantees
 
+WFSL Evidence Guard guarantees:
 
-\## Deterministic Guarantees
+- Deterministic evidence generation
+- Explicit input and output boundaries
+- Cryptographic sealing of evidence
+- Replayable and independently verifiable outputs
 
-
-
-Evidence emitted by this component is:
-
-
-
-\- Deterministic by design
-
-\- Reproducible across environments
-
-\- Offline-capable
-
-\- Cryptographically hash-verifiable
-
-\- Structurally stable for machine consumption
-
-
-
-Given identical inputs and execution context, the output evidence must be identical.
-
-
+All evidence emitted is append-only and non-destructive.
 
 ---
 
+## What This Component Does Not Do
 
+WFSL Evidence Guard explicitly does not:
 
-\## What This Component Does Not Do
+- Perform policy decisions
+- Enforce governance rules
+- Interpret evidence meaning
+- Modify external systems
+- Make trust claims
 
-
-
-WFSL Evidence Guard explicitly does \*\*not\*\*:
-
-
-
-\- Perform inference
-
-\- Apply policy
-
-\- Make decisions
-
-\- Enforce outcomes
-
-\- Trigger remediation
-
-\- Transmit telemetry
-
-
-
-It emits truth only.  
-
-Interpretation and enforcement are delegated to downstream components.
-
-
+It emits evidence only.
 
 ---
 
+## Evidence Characteristics
 
+Evidence produced by WFSL Evidence Guard is:
 
-\## Classification and Licence
+- Structured (machine-readable)
+- Time-bound
+- Content-addressed
+- Cryptographically signed
+- Suitable for long-term retention
 
-
-
-\*\*Classification:\*\* WFSL Open  
-
-\*\*Licence:\*\* Apache License 2.0
-
-
-
-This repository is open-source and auditable.  
-
-It forms part of the WFSL trust anchor layer and may be used freely in accordance with the Apache 2.0 licence.
-
-
-
-Behavioural expectations and platform doctrine are defined by WFSL but do not impose additional licence restrictions.
-
-
+Evidence is designed to remain verifiable even if WFSL systems are no longer available.
 
 ---
 
+## Role in the WFSL Platform
 
+WFSL Evidence Guard occupies the foundational tier of the WFSL platform.
 
-\## Execution and Verification
+It is consumed by:
 
+- WFSL ProofGate CLI
+- WFSL Repo Guard
+- Verification tooling
+- External auditors and inspectors
 
-
-Evidence is generated locally by executing the tool and capturing its output.
-
-
-
-Verification consists of:
-
-\- Inspecting evidence structure
-
-\- Validating deterministic fields
-
-\- Recomputing and matching cryptographic hashes
-
-\- Re-running execution to confirm reproducibility
-
-
-
-All verification is designed to be performed without reliance on external services.
-
-
+No WFSL trust claim may be made without corresponding Evidence Guard output.
 
 ---
 
+## Classification and Licence
 
+Classification: WFSL Open  
+Licence: Apache License 2.0
 
-\## Role in the WFSL Platform
+This repository is open-source and auditable.
 
-
-
-WFSL Evidence Guard is designated \*\*Platform Tier-0\*\*.
-
-
-
-It is the foundational truth emitter consumed by:
-
-\- wfsl-shell-guard
-
-\- wfsl-admission-guard
-
-\- wfsl-proofgate-cli
-
-\- shared verifiers
-
-\- testing frameworks
-
-\- governance and control-plane engines
-
-
-
-No WFSL component may assert trust without verifiable evidence originating from this layer or an equivalent authorised source.
-
-
+Commercial and production reliance requires a valid WFSL licence.
 
 ---
 
+## Stability
 
+This repository is considered stable once evidence format and cryptographic behaviour are frozen.
 
-\## Stability
-
-
-
-This repository is considered \*\*stable\*\* once deterministic guarantees are met and verified.
-
-
-
-Versioning reflects behavioural compatibility, not feature expansion.
-
-
-
+Any change to evidence structure requires explicit versioning and compatibility documentation.
