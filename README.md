@@ -84,3 +84,24 @@ Commercial and production reliance requires a valid WFSL licence.
 This repository is considered stable once evidence format and cryptographic behaviour are frozen.
 
 Any change to evidence structure requires explicit versioning and compatibility documentation.
+
+---
+
+## WFSL Platform Membership
+
+**Platform:** WFSL Evidence Platform
+
+**Role:**  
+Provides deterministic evidence ingestion, validation, and integrity checks as part of the WFSL Evidence Platform.
+
+**Guarantees:**  
+- Evidence-only processing  
+- Deterministic validation outputs  
+- Cryptographic integrity checks  
+- No behavioural inference  
+
+**Boundary:**  
+This repository validates and processes evidence only and does not enforce policy, execute actions, or introduce telemetry.
+
+See: WFSL-PLATFORM-INDEX.md
+
